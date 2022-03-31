@@ -1,0 +1,35 @@
+﻿@using BootstrapBlazor.Components;
+@using System.Linq.Expressions
+@using BugInv.Shared.Core
+@inject VideoMp4Validator videoMp4CValidator
+
+<div class="col d-flex align-items-center">
+  <BootstrapInputGroup>
+    <BootstrapInput
+      Value="@this.VideoUrl"
+      ValueChanged="@this.VideoUrlChanged"
+      ValueExpression="@this.VideoUrlExpression"
+      PlaceHolder="URL-Адрес"
+      ValidateRules="@this.GetValidators()"
+    >
+      <Tooltip Placement="@BootstrapBlazor.Components.Placement.Top" />
+    </BootstrapInput>
+    <Button Color="Color.Secondary" Icon="far fa-clipboard"></Button>
+  </BootstrapInputGroup>
+</div>
+
+@code {
+    [Parameter]
+    public string? VideoUrl { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> VideoUrlChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<string?>> VideoUrlExpression { get; set; } = null!;
+
+    private List<IValidator> GetValidators()
+    {
+        return new List<IValidator>() { videoMp4CValidator };
+    }
+}
