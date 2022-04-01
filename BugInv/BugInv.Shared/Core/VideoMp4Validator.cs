@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BugInv.Shared.Core
 {
-    public class VideoMp4Validator : IValidator
+    public class VideoMp4Validator : ValidatorAsyncBase
     {
-        public string? ErrorMessage { get; set; }
-
-        public async Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        public override async Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             var url = propertyValue?.ToString();
             if (string.IsNullOrWhiteSpace(url))
